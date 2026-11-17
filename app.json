@@ -1,17 +1,28 @@
 {
   "expo": {
-    "name": "Skill_Bridge_Mobile",
-    "slug": "Skill_Bridge_Mobile",
+    "name": "DNTU SkillBridge",
+    "slug": "dntu-skillbridge",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.dntu.skillbridge",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Ứng dụng cần quyền camera để chụp ảnh đại diện hoặc minh chứng dự án.",
+        "NSPhotoLibraryUsageDescription": "Ứng dụng cần quyền truy cập thư viện ảnh để tải lên hồ sơ và minh chứng."
+      }
     },
     "android": {
+      "package": "edu.dntu.skillbridge",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#ffffff",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
