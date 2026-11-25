@@ -294,10 +294,12 @@ const MOBILE_TOUCH_POLISH_JS = `
   true;
 `;
 
-function parseUrlInfo(rawUrl: string): { pathname: string; search: string } {
+function parseUrlInfo(rawUrl: string, currentHost: string): { pathname: string; search: string } {
   try {
     const parsed = new URL(rawUrl);
-    if (parsed.host !== APP_HOST) return { pathname: '/', search: '' };
+    if (parsed.host !== currentHost && parsed.host !== APP_HOST) {
+      return { pathname: '/', search: '' };
+    }
     return { pathname: parsed.pathname || '/', search: parsed.search || '' };
   } catch {
     return { pathname: '/', search: '' };
@@ -369,13 +371,16 @@ function SkillBridgeWebView() {
     return () => subscription.remove();
   }, [canGoBack]);
 
-  const handleNavigationStateChange = useCallback((navState: WebViewNavigation) => {
-    setCanGoBack(navState.canGoBack);
-    const { pathname, search } = parseUrlInfo(navState.url);
-    setCurrentPath(pathname);
-    setCurrentSearch(search);
-    setRole((prev) => inferRoleFromPath(pathname, prev));
-  }, []);
+  const handleNavigationStateChange = useCallback(
+    (navState: WebViewNavigation) => {
+      setCanGoBack(navState.canGoBack);
+      const { pathname, search } = parseUrlInfo(navState.url, activeHost);
+      setCurrentPath(pathname);
+      setCurrentSearch(search);
+      setRole((prev) => inferRoleFromPath(pathname, prev));
+    },
+    [activeHost],
+  );
 
   const handleWebMessage = useCallback((event: WebViewMessageEvent) => {
     try {
