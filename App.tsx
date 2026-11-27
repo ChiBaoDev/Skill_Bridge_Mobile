@@ -575,7 +575,7 @@ function SkillBridgeWebView() {
                     {tab.badge && tab.badge > 0 ? (
                       <View style={styles.badge}>
                         <Text style={styles.badgeText}>
-                          {tab.badge > 9 ? '9+' : String(tab.badge)}
+                          {tab.badge > 99 ? '99+' : String(tab.badge)}
                         </Text>
                       </View>
                     ) : null}
